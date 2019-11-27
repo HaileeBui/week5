@@ -36,10 +36,38 @@ const addUser = async (params) =>{
     console.log('error', e.message);
     return {error: 'error in database query'};
   }
-}
+};
+
+const updateUser = async (params) =>{
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE wop_user SET name = ?, email = ?, password = ? WHERE user_id = ?;',
+        params,
+    );
+    return rows;
+  } catch (e) {
+    console.log('error', e.message);
+    return {error: 'error in database query'};
+  }
+};
+
+const deleteUser = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'DELETE FROM wop_user WHERE user_id = ?;',
+        params,
+    );
+    return rows;
+  } catch (e) {
+    console.log('error', e.message);
+    return {error: 'error in database query'};
+  }
+};
 
 module.exports = {
   getAllUsers,
   getUser,
   addUser,
+  updateUser,
+  deleteUser
 };
