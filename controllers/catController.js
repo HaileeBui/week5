@@ -35,7 +35,6 @@ const cat_delete = async (req, res) => {
 
 const cat_update_put = async(req,res) => {
   const params = [
-    req.params.id,
     req.body.name,
     req.body.age,
     req.body.weight, 
