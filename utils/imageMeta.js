@@ -8,10 +8,13 @@ const getCoordinates = (imgFile) => { // imgFile = full path to uploaded image
       // coordinates below should be an array [longitude, latitude]
         new ExifImage({ image : imgFile }, (error, exifData) => {
         if (error) {
-            console.log('Error: '+error.message);
+            console.log('Error: '+ error.message);
             reject(error);
         } else {
-            resolve(exifData);
+            const longtitude = gpsToDecimal(exifData.gps.GPSLongitude, exifData.gps.GPSLongitudeRef);
+            const latitude = gpsToDecimal(exifData.gps.GPSLatitude, exifData.gps.GPSLatitudeRef);
+            const coords = [longtitude, latitude];
+            resolve(coords);
         }
     });
     }
